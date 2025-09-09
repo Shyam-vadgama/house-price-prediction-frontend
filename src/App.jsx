@@ -12,9 +12,17 @@ function App() {
     const response = await fetch("https://house-price-prediction-backend-145o.onrender.com/predict", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ rooms, area, location }),
+      body: JSON.stringify({
+        rooms: parseInt(rooms), // Make sure to send numbers
+        area: parseFloat(area),   // Make sure to send numbers
+        location: location
+      }),
     });
     const data = await response.json();
+    
+    // YEH LINE ADD KARO
+    console.log("SERVER SE YEH RESPONSE AAYA:", data);
+    
     setPrediction(data.prediction);
   };
 
@@ -45,11 +53,11 @@ function App() {
         />
         <button type="submit">Predict</button>
       </form>
-      {prediction && (
-        <div className="result">
-          <h2>Predicted Price: ${prediction}</h2>
-        </div>
-      )}
+      {prediction !== null && (
+  <div className="result">
+    <h2>Predicted Price: ${prediction}</h2>
+  </div>
+)}
     </div>
   );
 }
