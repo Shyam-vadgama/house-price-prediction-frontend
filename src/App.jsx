@@ -9,7 +9,7 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("https://your-backend.onrender.com/predict", {
+    const response = await fetch("https://house-price-prediction-backend-145o.onrender.com/predict", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ rooms, area, location }),
