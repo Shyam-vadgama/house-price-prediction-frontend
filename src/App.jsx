@@ -1,8 +1,11 @@
 import { useState } from "react";
 import "./App.css";
 
+// ✅ Use VITE_ prefix with import.meta.env
+const API_URL = import.meta.env.VITE_API_URL;
+console.log("API URL:", API_URL);
+
 function App() {
-  // State for all 12 inputs
   const [area, setArea] = useState("7420");
   const [bedrooms, setBedrooms] = useState("4");
   const [bathrooms, setBathrooms] = useState("2");
@@ -40,14 +43,12 @@ function App() {
     };
 
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/predict`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(dataToSend),
-        }
-      );
+      const response = await fetch(`${API_URL}/predict`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataToSend),
+      });
+
       const result = await response.json();
       if (result.error) {
         setError(result.error);
@@ -60,46 +61,16 @@ function App() {
       setPrediction(null);
     }
   };
-  console.log("API URL:", process.env.REACT_APP_API_URL);
+
   return (
     <div className="container">
       <h1>🏠 Housing Price Predictor</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          placeholder="Area (sq ft)"
-          value={area}
-          onChange={(e) => setArea(e.target.value)}
-          required
-        />
-        <input
-          type="number"
-          placeholder="Bedrooms"
-          value={bedrooms}
-          onChange={(e) => setBedrooms(e.target.value)}
-          required
-        />
-        <input
-          type="number"
-          placeholder="Bathrooms"
-          value={bathrooms}
-          onChange={(e) => setBathrooms(e.target.value)}
-          required
-        />
-        <input
-          type="number"
-          placeholder="Stories"
-          value={stories}
-          onChange={(e) => setStories(e.target.value)}
-          required
-        />
-        <input
-          type="number"
-          placeholder="Parking Spaces"
-          value={parking}
-          onChange={(e) => setParking(e.target.value)}
-          required
-        />
+        <input type="number" placeholder="Area (sq ft)" value={area} onChange={(e) => setArea(e.target.value)} required />
+        <input type="number" placeholder="Bedrooms" value={bedrooms} onChange={(e) => setBedrooms(e.target.value)} required />
+        <input type="number" placeholder="Bathrooms" value={bathrooms} onChange={(e) => setBathrooms(e.target.value)} required />
+        <input type="number" placeholder="Stories" value={stories} onChange={(e) => setStories(e.target.value)} required />
+        <input type="number" placeholder="Parking Spaces" value={parking} onChange={(e) => setParking(e.target.value)} required />
 
         <select value={mainroad} onChange={(e) => setMainroad(e.target.value)}>
           <option value="Yes">Main Road</option>
