@@ -41,7 +41,7 @@ function App() {
 
     try {
       const response = await fetch(
-        "https://house-price-prediction-backend-145o.onrender.com/predict",
+        `${process.env.REACT_APP_API_URL}/predict`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -65,30 +65,87 @@ function App() {
     <div className="container">
       <h1>🏠 Housing Price Predictor</h1>
       <form onSubmit={handleSubmit}>
-        {/* Simple form for all inputs */}
-        <input type="number" placeholder="Area (sq ft)" value={area} onChange={(e) => setArea(e.target.value)} required />
-        <input type="number" placeholder="Bedrooms" value={bedrooms} onChange={(e) => setBedrooms(e.target.value)} required />
-        <input type="number" placeholder="Bathrooms" value={bathrooms} onChange={(e) => setBathrooms(e.target.value)} required />
-        <input type="number" placeholder="Stories" value={stories} onChange={(e) => setStories(e.target.value)} required />
-        <input type="number" placeholder="Parking Spaces" value={parking} onChange={(e) => setParking(e.target.value)} required />
+        <input
+          type="number"
+          placeholder="Area (sq ft)"
+          value={area}
+          onChange={(e) => setArea(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          placeholder="Bedrooms"
+          value={bedrooms}
+          onChange={(e) => setBedrooms(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          placeholder="Bathrooms"
+          value={bathrooms}
+          onChange={(e) => setBathrooms(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          placeholder="Stories"
+          value={stories}
+          onChange={(e) => setStories(e.target.value)}
+          required
+        />
+        <input
+          type="number"
+          placeholder="Parking Spaces"
+          value={parking}
+          onChange={(e) => setParking(e.target.value)}
+          required
+        />
 
-        <select value={mainroad} onChange={(e) => setMainroad(e.target.value)}> <option value="Yes">Main Road</option> <option value="No">No Main Road</option> </select>
-        <select value={guestroom} onChange={(e) => setGuestroom(e.target.value)}> <option value="Yes">Guest Room</option> <option value="No">No Guest Room</option> </select>
-        <select value={basement} onChange={(e) => setBasement(e.target.value)}> <option value="Yes">Basement</option> <option value="No">No Basement</option> </select>
-        <select value={hotwaterheating} onChange={(e) => setHotwaterheating(e.target.value)}> <option value="Yes">Hot Water</option> <option value="No">No Hot Water</option> </select>
-        <select value={airconditioning} onChange={(e) => setAirconditioning(e.target.value)}> <option value="Yes">AC</option> <option value="No">No AC</option> </select>
-        <select value={prefarea} onChange={(e) => setPrefarea(e.target.value)}> <option value="Yes">Preferred Area</option> <option value="No">Not Preferred</option> </select>
-        <select value={furnishingstatus} onChange={(e) => setFurnishingstatus(e.target.value)}> <option value="Furnished">Furnished</option> <option value="Semi-furnished">Semi-furnished</option> <option value="Unfurnished">Unfurnished</option> </select>
-        
+        <select value={mainroad} onChange={(e) => setMainroad(e.target.value)}>
+          <option value="Yes">Main Road</option>
+          <option value="No">No Main Road</option>
+        </select>
+
+        <select value={guestroom} onChange={(e) => setGuestroom(e.target.value)}>
+          <option value="Yes">Guest Room</option>
+          <option value="No">No Guest Room</option>
+        </select>
+
+        <select value={basement} onChange={(e) => setBasement(e.target.value)}>
+          <option value="Yes">Basement</option>
+          <option value="No">No Basement</option>
+        </select>
+
+        <select value={hotwaterheating} onChange={(e) => setHotwaterheating(e.target.value)}>
+          <option value="Yes">Hot Water</option>
+          <option value="No">No Hot Water</option>
+        </select>
+
+        <select value={airconditioning} onChange={(e) => setAirconditioning(e.target.value)}>
+          <option value="Yes">AC</option>
+          <option value="No">No AC</option>
+        </select>
+
+        <select value={prefarea} onChange={(e) => setPrefarea(e.target.value)}>
+          <option value="Yes">Preferred Area</option>
+          <option value="No">Not Preferred</option>
+        </select>
+
+        <select value={furnishingstatus} onChange={(e) => setFurnishingstatus(e.target.value)}>
+          <option value="Furnished">Furnished</option>
+          <option value="Semi-furnished">Semi-furnished</option>
+          <option value="Unfurnished">Unfurnished</option>
+        </select>
+
         <button type="submit">🔮 Predict Price</button>
       </form>
-      
+
       {prediction && (
         <div className="result">
           <h2>Predicted Price: {prediction}</h2>
         </div>
       )}
-       {error && (
+      {error && (
         <div className="error">
           <p>{error}</p>
         </div>
