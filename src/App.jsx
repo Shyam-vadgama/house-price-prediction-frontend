@@ -60,7 +60,7 @@ function App() {
       setPrediction(null);
     }
   };
-
+  console.log("API URL:", process.env.REACT_APP_API_URL);
   return (
     <div className="container">
       <h1>🏠 Housing Price Predictor</h1>
