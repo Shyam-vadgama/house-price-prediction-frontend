@@ -1,9 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 
-// ✅ Use VITE_ prefix with import.meta.env
 const API_URL = import.meta.env.VITE_API_URL;
-console.log("API URL:", API_URL);
 
 function App() {
   const [area, setArea] = useState("7420");
